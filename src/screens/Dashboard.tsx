@@ -12,7 +12,7 @@ import HoldingsList from '../components/HoldingsList'
 
 const Dashboard = () => {
 
-    const [data, setData] = useState<{ userHolding: holdingsType[], portfolioData: portfolioType }>({userHolding:[],portfolioData:null})
+    const [data, setData] = useState<{ userHolding: holdingsType[], portfolioData: portfolioType }>({ userHolding: [], portfolioData: null })
     const [loader, setLoader] = useState(true)
 
     useEffect(() => {
@@ -25,13 +25,16 @@ const Dashboard = () => {
     }, [])
 
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: Colors.bg_color }}>
-            <Header title={Strings.HOLDINGS} />
-            {loader ? <LoaderView loader={loader} /> : <>
-                <HoldingsList data={data.userHolding} />
-                <PortfolioView data={data.portfolioData} />
-            </>}
-        </SafeAreaView>
+        <>
+            <SafeAreaView style={{ flex: 1, backgroundColor: Colors.bg_color }}>
+                <Header title={Strings.HOLDINGS} />
+                {!loader && <>
+                    <HoldingsList data={data.userHolding} />
+                    <PortfolioView data={data.portfolioData} />
+                </>}
+            </SafeAreaView>
+            <LoaderView loader={loader} />
+        </>
     )
 
 }
